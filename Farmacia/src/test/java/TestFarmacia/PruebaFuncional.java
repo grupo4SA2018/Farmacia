@@ -5,6 +5,7 @@
  */
 package TestFarmacia;
 
+import com.eviware.soapui.tools.SoapUITestCaseRunner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,28 +19,17 @@ import static org.junit.Assert.*;
  */
 public class PruebaFuncional {
     
-    public PruebaFuncional() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
+     
+ public PruebaFuncional() {
+ }
+  @Test
+	public void shouldExecuteAllTestCases() throws Exception{
+		// given
+		SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
+             String path="/home/pruebafuncional-soapui-project.xml";
+             runner.setProjectFile(path);
+     	//runner.setProjectProperties(properties);
+     	runner.run();
+	}
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
