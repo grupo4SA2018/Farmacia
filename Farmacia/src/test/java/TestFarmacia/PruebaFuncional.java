@@ -26,7 +26,8 @@ public class PruebaFuncional {
 	public void shouldExecuteAllTestCases() throws Exception{
 		// given
 		SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
-             String path="/home/pruebafuncional-soapui-project.xml";
+             //String path="C:\\Users\\Pamela Palacios\\Documents\\farmacia-soapui-project.xml";
+              String path="/home/farmacia-soapui-project.xml";
              runner.setProjectFile(path);
      	//runner.setProjectProperties(properties);
      	runner.run();
