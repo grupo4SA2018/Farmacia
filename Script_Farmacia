@@ -1,0 +1,128 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Medicamento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Medicamento` (
+  `idMedicamento` INT NOT NULL,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `Descripcion` VARCHAR(45) NOT NULL,
+  `Fabricante` VARCHAR(45) NOT NULL,
+  `Precio` DECIMAL(5) NOT NULL,
+  `Existencias` INT NOT NULL,
+  `Bajo_Prescripcion` INT NOT NULL,
+  PRIMARY KEY (`idMedicamento`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Factura`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Factura` (
+  `idFactura` INT NOT NULL,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `NIT` VARCHAR(10) NOT NULL,
+  `Fecha` DATE NOT NULL,
+  PRIMARY KEY (`idFactura`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`DETALLE`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`DETALLE` (
+  `idDETALLE` INT NOT NULL,
+  `Cantidad` INT NOT NULL,
+  `SubTotal` REAL NOT NULL,
+  `Medicamento` INT NOT NULL,
+  `Factura` INT NOT NULL,
+  PRIMARY KEY (`idDETALLE`),
+  INDEX `fk_DETALLE_Medicamento_idx` (`Medicamento` ASC),
+  INDEX `fk_DETALLE_Factura1_idx` (`Factura` ASC),
+  CONSTRAINT `fk_DETALLE_Medicamento`
+    FOREIGN KEY (`Medicamento`)
+    REFERENCES `mydb`.`Medicamento` (`idMedicamento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_DETALLE_Factura1`
+    FOREIGN KEY (`Factura`)
+    REFERENCES `mydb`.`Factura` (`idFactura`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Farmacia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Farmacia` (
+  `idFarmacia` INT NOT NULL,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `DIreccion` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idFarmacia`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Solicitud`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Solicitud` (
+  `idSolicitud` INT NOT NULL,
+  `Fecha` DATE NOT NULL,
+  `Cantidad` VARCHAR(45) NOT NULL,
+  `Destino` INT NOT NULL,
+  `Origen` INT NOT NULL,
+  PRIMARY KEY (`idSolicitud`),
+  INDEX `fk_Solicitud_Farmacia1_idx` (`Destino` ASC),
+  INDEX `fk_Solicitud_Farmacia2_idx` (`Origen` ASC),
+  CONSTRAINT `fk_Solicitud_Farmacia1`
+    FOREIGN KEY (`Destino`)
+    REFERENCES `mydb`.`Farmacia` (`idFarmacia`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Solicitud_Farmacia2`
+    FOREIGN KEY (`Origen`)
+    REFERENCES `mydb`.`Farmacia` (`idFarmacia`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`ListaMedicamentos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`ListaMedicamentos` (
+  `idListaMedicamentos` INT NOT NULL,
+  `Medicamento` INT NOT NULL,
+  `Solicitud` INT NOT NULL,
+  PRIMARY KEY (`idListaMedicamentos`),
+  INDEX `fk_ListaMedicamentos_Medicamento1_idx` (`Medicamento` ASC),
+  INDEX `fk_ListaMedicamentos_Solicitud1_idx` (`Solicitud` ASC),
+  CONSTRAINT `fk_ListaMedicamentos_Medicamento1`
+    FOREIGN KEY (`Medicamento`)
+    REFERENCES `mydb`.`Medicamento` (`idMedicamento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ListaMedicamentos_Solicitud1`
+    FOREIGN KEY (`Solicitud`)
+    REFERENCES `mydb`.`Solicitud` (`idSolicitud`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
