@@ -1,3 +1,5 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
@@ -16,13 +18,12 @@ USE `mydb` ;
 -- Table `mydb`.`Medicamento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Medicamento` (
-  `idMedicamento` INT NOT NULL,
+  `idMedicamento` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NOT NULL,
   `Descripcion` VARCHAR(45) NOT NULL,
   `Fabricante` VARCHAR(45) NOT NULL,
   `Precio` DECIMAL(5) NOT NULL,
   `Existencias` INT NOT NULL,
-  `Bajo_Prescripcion` INT NOT NULL,
   PRIMARY KEY (`idMedicamento`))
 ENGINE = InnoDB;
 
@@ -31,7 +32,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Factura`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Factura` (
-  `idFactura` INT NOT NULL,
+  `idFactura` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NOT NULL,
   `NIT` VARCHAR(10) NOT NULL,
   `Fecha` DATE NOT NULL,
@@ -43,7 +44,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`DETALLE`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`DETALLE` (
-  `idDETALLE` INT NOT NULL,
+  `idDETALLE` INT NOT NULL AUTO_INCREMENT,
   `Cantidad` INT NOT NULL,
   `SubTotal` REAL NOT NULL,
   `Medicamento` INT NOT NULL,
@@ -68,7 +69,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Farmacia`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Farmacia` (
-  `idFarmacia` INT NOT NULL,
+  `idFarmacia` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NOT NULL,
   `DIreccion` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idFarmacia`))
@@ -79,7 +80,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Solicitud`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Solicitud` (
-  `idSolicitud` INT NOT NULL,
+  `idSolicitud` INT NOT NULL AUTO_INCREMENT,
   `Fecha` DATE NOT NULL,
   `Cantidad` VARCHAR(45) NOT NULL,
   `Destino` INT NOT NULL,
@@ -104,7 +105,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`ListaMedicamentos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`ListaMedicamentos` (
-  `idListaMedicamentos` INT NOT NULL,
+  `idListaMedicamentos` INT NOT NULL AUTO_INCREMENT,
   `Medicamento` INT NOT NULL,
   `Solicitud` INT NOT NULL,
   PRIMARY KEY (`idListaMedicamentos`),
